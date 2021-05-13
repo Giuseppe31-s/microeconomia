@@ -1,0 +1,448 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.8.5"
+    },
+    "colab": {
+      "name": "Cópia de microlagrange2.ipynb",
+      "provenance": [],
+      "include_colab_link": true
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Giuseppe31-s/microeconomia/blob/main/Fun%C3%A7%C3%A3o%20de%20lagrange\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "-r5PAaJxr8Zb"
+      },
+      "source": [
+        "from sympy import *\n",
+        "x,y,z = symbols ('x y z')\n",
+        "init_printing(use_unicode = True)"
+      ],
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zK3FtBNer8Zj"
+      },
+      "source": [
+        "L = 2/3*ln(x) + 1/3*ln(y) - z*(5*x + 10*y - 300) ### a função lagrangiana"
+      ],
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "KNbYtJZbr8Zk",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 51
+        },
+        "outputId": "bcc3f546-1ab5-48f4-c120-7be0772c5ac2"
+      },
+      "source": [
+        "u = diff(L, x) ### diferenciando L em relação a x\n",
+        "u"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAASgAAAAUCAYAAAA+yKB7AAAABHNCSVQICAgIfAhkiAAABWVJREFUeJztm2tsFUUUx3+lYguoxBCDJkhKig9U1C8Y1IoPtB+q4IsPBh+9RjTRaFSi8fHFVxSr1TRiFIgKRKNGTQqRohSoLVLxkYgaE1+RVlEENalGhVJa6odzbnqdO7t3d++rieeXbDadmf/ZMzfdc8+cmQuGYRj/E3qB4YBrd/ncisUU4CVgF7AfmVMLcGRCe3OBVmT++9XuBqChzBrzy+aSS5Mi+H1OX0Mhz5is/UtDxoRSmVQYwB1ABdAEdDlXJ/BBgZ9XaGqBj4E6oANYB4wHrgIuA14D9sWw9wSwHDgMaAM2Az8D04GDwMYyacwvm0tUzR6y3+UuHTcNWA+86nkGwNXAfOBe5Iu+7PRSXkdSSFQ/L6F+g+pvc9qf1vZlMWzdqJpVwKGe/rFl0phfNpe4Gh/b1M78kDHvAL9T+EQoMb3ED1BbCU8ht8SwlSJ5gKpVbQ8wxuk7HPgb+AeYEMFWFfAr8AP+f4Jyacwvm0tcjY+ZyLvyE8HB5whk6bjSaW9X7ZVOewUSNIeBx9ONh+ThZBBVwDXAVOSF/gIJMkFr1TXAJk/79Wqjowg++jhf7+1I+prJX0A3UA/MRlLiMC4CjkJqVweBi4FTgH5kCbmtTBrzy+YSV+PjJr2/SPB7fQkSBFud9ruBT4FHkHc/rW8GGoEVyJIQKE6AOhp42WnrQQJOl2d8c0DbVCT6PlxQ74I5Qe/fBvR/hwSo48kdoGbpvR/YjvwTZLIFWAD8VmKN+WVziatxGYckIEPACyHjLkcSlHan/XMkPjQC1yJZ0/3AYuAN4OYQm3nzAHABUr0fj3wAy5BovRc4LYe+AngOSfOe1b/jkCL5Em+FahcF9D+q/fdFsPW8jh1EMsg6pCA5k5E6V2cZNOaXzSWuxqVRx60LGVONrDreDOg/Ftls6gFuVXvvEmHZ2UvubcXM65VcBpVmHe+me5lUAqt1XFMEm3F9XZXDXiED1HId2w/UOH3jgZ3af2aJNeaXzSWuxqVbx8wLGTNPxywMGbOEkXezW5+fhVsM/h74Jsa1K8SBTNK7X3MC+scCrwPXIVnYPRFstgAPOdda7Vvt6VuTw96fep8Y0J9u/yOCb+kx28neNNiLfFsBnFFijflVfM1o9SupJpOTgbOQ4vj6gDEAVwADyBGGIDKXkTfo87Nwa1BzQwzmQ9oZ3w5YNfAWUrC7C3gqos0WT1sKuBTJljrjOIgEXJAak4/j9B5Uo/LZCgpmfXofV2KN+VV8zWj1K6kmkyjF8Uokg+pg5EvfZSGyqtqN1KxvJ6D25GZQxWK23nc47ROQKNsA3EL04FQM3tN7Pf5jBmcjUf7DCLY2I6nrSR5bMFKc7CmxxvyyucTVpKlGitpDSIAKYg4wieByTgOSQHwJnIoEzUWMbFIVjRn4M6QaZAdsGKnWp5mIrD0HkaVdIUiRvEgOyQ5q1gInkn3Aba1q7nTa65FNgz6yl5Ol0JhfNpe4GpDgNAy87enL5BkkiE329NUhX/I7gGO0bYHazVWCyZsHkcp9G7IT14Qs3fapA238t0rfpu0fqdZ3VcX0IUV+AaoWOdqf/sCWIKnqMBLpJ3k0vdpf47RPAX7Uvk3Ak8jnMQgcIPugWqk05pfNJa4G4H1yF8cr1PZWT9/pyNLyF+Q9y+QTtX1OiO28ORf5rdrX6sgBpPa0EcmQMo8MjEGCWdiu254EPqTIL0CBbIGuRD7IAeTUbdiPhXvxByiQQ3FL1cYAcuy/leAiZKk05pfNJY5mBvI/vpPwn63M0nGLnfbpSL2pD1nWuVyouijlE8MwjEQ8hgSaaeV2xDAMw+Ur4LNyO2EYhmEYhmEYhmGMSv4F7Qp4AgAo7PAAAAAASUVORK5CYII=\n",
+            "text/latex": "$\\displaystyle - 5 z + \\frac{0.666666666666667}{x}$",
+            "text/plain": [
+              "       0.666666666666667\n",
+              "-5⋅z + ─────────────────\n",
+              "               x        "
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 3
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "M6PxLzWdr8Zm",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 54
+        },
+        "outputId": "6211d718-cbd7-43dc-c681-d7a006febc8a"
+      },
+      "source": [
+        "t = diff(L, y) ### diferenciando L em relação a y\n",
+        "t"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAATUAAAAWCAYAAAChUAsoAAAABHNCSVQICAgIfAhkiAAABR9JREFUeJztm1uIVVUYx3/jZAyNJVrUFKXZkPoQSJE1dqFzCnvoAhb1EhEnsAGjoCyoCGoIumgSMQ7RFDQ+VA/1oEUwZJpYjoKBSlRaPXSiKCtN1CIK8/Twrc2c2bMvZ6+z9jq7zfeDw2avtf7r+6+ZOR/rNqAoiqLEcgewHvgUOAY0gDdb0J0PvAH8BPwN1IGXgTm5uHSPK/9rgK3AD8BfwO/AXuBp4ExHGh8xyuRLx+LHV8A5wL9IHrGiy1YYwz5gCfAH8COwGHgLuDtB0w/sBM4G3gMOAFcAVeBr4GrgsGOfLnHp/x9gD/AV8CvQCwwAlyMJcwD5Q2lH4yNGmXzpWPz4ChgERoHrgW0xbbxSBS5GkmWF1mZqH5p2D4bKXzLlr7q1OI2aiVOx1Lv03xNT/qzp6xUHGh8xyuTLRlNUXzYaX74CxoFDQHdCm45RIT2p9Zs23wEzQnWnIzO+P5FM38wOo4v7fJLBZw37pGbrPytLTJyPctT4iFEmXzaaovqy0eQR4wxk+2bMvK827R+Jab/ItJ/yfT8lg6E8qJrnZuBkqO44MAHciExXtzbVbQK2RPR3LzAP+NitzVhs/WflVvP8PEeNjxg2mqL6stEU1ZeNJo8YtwCnAhvN+4R5DsS0X4/M6B5oLux0Ultknt/E1H+LJIWFTE0K6yLarkMS2hjwjCuDKdj6T+NRYBYwG9mHuAb5Q3jBocZHjDL50rHkH+M2ZGWz2bzvQQ4aroxoeyewHBgmW2Jtiwrpy8/XTJuVMfXBGvyJhD66kDV6Axgh++FHDfvlpwv/URxk6nJ6HDkVcqnxEaNMvmw0RfVlo8k7Rg+yunk3VL7daM9tKutFDhp+QRLmFML7QPWQibRPK9c18qQb2ACsAtYi09BGQvs608cQrN+3RdRtcG+5JfqQ5NwH3A5chByJX+ZQ4yNGmXzpWPKNsRyZ1W0MlQdL0GVNZU8h16geA44mxAdkiXQgw2dtQl8V0hPfiyRvBI6Y+lURdTORrN5ABtkKDwFDoc8mJhNYuG5FSn/t+M/CfGRD9IscNT5ilMmXjaaovmw0rmOMmbrwzOtm5Du0xrwvRq6M7MT9lbRUKqQntZWmzWhMfXBd4oZQeQ/wAckJpVVq2C8/bf3bsNf0dVaOGh8xyuTLRlNUXzYaVzG6kWsc4xHt5yCHcNvN+xbkcu6lGWI6o0J6UrO5EtGLzChP0v4MCP4fVzpA9g8aZPsvhawaHzHK5MtGU1RfNhpXMaqmbDBG8yXyXbrLtEu655YrFVrbd8tyeXU2ssY+AdzjxKX/y7f9yBR6Zqh8IRGbnkiyDA4cJkJ1WTU+YpTJl42mqL5sNL58DSOzr7hDhFGjOw78RkoSdX2lYwWT+1B95rmMyQ33Q8gxbzP3I+vjYWSZth85wq0iVyWebGr7NnAVsBvZdByK8PA8sjb3RRb/ILPM+cAC5OAi4CbE+w5k5ncY+SVfh4z1IHBfqK+sGh8xyuRLx5J/jC4kZ+xCZnFRTCCzuFnAw8CRmHa5METyaWk9RncBslH4M7IJ+D3T/yF8BpKpk/qP+6EkUaO9mRq05j+gbuJdGCq/BDlY2Ick/xPIyc5nyM91bkRfWTU+YpTJl44l/xhLke/D6oi+Aq41bXbTgcMBRVGULDyHJKwFCW3eR5anS704UhRFaYP9yKwujuBwYMSPHUVRFPfMAx4HXmfyXttpHXWkKIrSBoPI7OwI8A5wXmftKIqiKIqiKIqiKMo0/gNhJdHXJ+wHsQAAAABJRU5ErkJggg==\n",
+            "text/latex": "$\\displaystyle - 10 z + \\frac{0.333333333333333}{y}$",
+            "text/plain": [
+              "        0.333333333333333\n",
+              "-10⋅z + ─────────────────\n",
+              "                y        "
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "0vbEnz7Kr8Zn",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 38
+        },
+        "outputId": "ff5781c1-2a1f-4050-e61d-302965b026a6"
+      },
+      "source": [
+        "p = diff(L, z) ### o que nos dá a restrição\n",
+        "p"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAKcAAAAWCAYAAAClgIw8AAAABHNCSVQICAgIfAhkiAAABLJJREFUaIHt2nuoVUUUwOFPi14Wak+LitDSDEmLSqPSKxVBEEUPAim7kEhB0ZtCyIwIC6IEe1hB2YsgoiyIUntQoUWCWaiUYt0wvNnTsrfV7Y81h3vcnX3vOfue4ynaP9hszppZs9eas/bMrJlNScn/hC705FxftM+shjgf8/E2fhC2P1mH3sF4BJvwm+iLeRjeEiubz514DRvxC77F+7gF+/ShV8TvunQGNexC33RhWHpQlh9xV5Of1wpWYbyw93MciadwUR86o7Ac++MFfIQTMBUf4yR80zqTm8LvWIm1+BJDMAnHiSCaJAK3miJ+t62vutL1X2YqjhAvbof6Rs7Fqd6VGfndSb6guSbm0pme11FAd7cc+e2pzftrlBXxu2191aXx4FwijDovIx+EhansjgHaVZQO/QfnqFTnUwzOlO0lRuCfxEhU4dqkc11Om2PEdPdWg/Z2Kh6ceYxPbS7NyIv43ZBOtkIz2FVMgbNwlRiJduqj/g34C7dl6t2FS/AQbmqBnc1iarovEX5UsxXLsIeYFissS/dJajNf9MUVTbJxIJyV7h9m5EX8bkinFcE5Ak+I6WAeXsd6TMmp/0GqPxYXJ9ksMbo8g8tbYGMzGZPu63LK16f76CrZSpF0TKxR/wKcjvv8MyB2BNdjDu4RSeFtyY7s7FXE74Z0dq7L3Pp5VDi0RrwJI8XbPxMv40QRjFluxoUiM9xTBPZiEazZN+zfxtB0/z6nvCIfViXbhhWYjAPRneRDxNrrS8xurpl1cz0OqPr9ilgufJWpV8TvhnSyI2eX/K2gWld2LXarGCk342esxmWiw3cXb2QtNopR9jAxpS3HuSKD7I+B2twuKlP7iVWy2WKb5Ub5f2CFLv/07dFU9kaNsoV12jVCrPdHiP9gpNhSOrZO/aaRHTk34NcG9DfVWW+BWPxP7qNO9Zt5qQjuemiVzfVSCaKhOeUV+ZaMvBKcE/Gc2LK6Bu/gsTqeO8/2oxJMwNlJvytTtqqONqvZjOfFEmQdHse4qvIifhftq5YyVLy9eUE0TUzf3aneAzvIrv7o0P9oOyPVeTCnvLJ1cmpGPlz4/Gb6/Sr+xDEFbaU12ToxcvZg3ypZEb+L9lVLOSM9dG2NsjPF9P0h9hObstv0Lp7bSYfWbCVVWJPKp8nfS2yETq0Jzs2p3eoTnJZvJTWTsTmNHiaysB6RhVdzspi+PxGJAXF82INFzTawAB1auwn/YCrfKpY1Az3q7FQsOEerPdUO1rsJv6xG+X9mE36O6OSXxAhwJ54VWyY9Sb5LVf0JYm3RLd6oalYknVNaYWg/nCOSh4UiU+0R69qKrNYR7Ci9o8sizBWJYY84kss7m56uN2GZ0QTbOxULzqvF/7RU7CvPFWffG1J73Tiqhl4Rv4v21YCYgqfFtLxFTM1fCYen2/4c/3DxIch3OLpGW6clY99thaH9MEff2X5Xjt4hIlvuFsuUz/T/AcQpqc33NOc7h07FgnMc7hVJ09f4QyQvK0R/7N2HbhG/i+iU7GBeFEnQ8e02pKSkmkoSdG+7DSkpgUPFdwIPiw87Vouz5JKStjNTjJbfie8GDmqvOSUlJSUlJSUlO4S/AdAtqunw6OQAAAAAAElFTkSuQmCC\n",
+            "text/latex": "$\\displaystyle - 5 x - 10 y + 300$",
+            "text/plain": [
+              "-5⋅x - 10⋅y + 300"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ZglvibDZr8Zo",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 58
+        },
+        "outputId": "cd011330-7916-44d4-c58a-92d4b2da9848"
+      },
+      "source": [
+        "w = solve(u, z) ### resolvendo u em relação a z (o lambda aqui); apresentamos z como função de x\n",
+        "w"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAPUAAAAVCAYAAACe9ajnAAAABHNCSVQICAgIfAhkiAAABENJREFUeJzt21vIVUUUB/CfWiGVSRfKokizzCAyoouR5WcXH6TIyqcoerGgqBcz6PKQEt0oIkwqfcigeqmggsAyxBOlBUVZSJZBfmGkhRbdjCSzhzWH73y7vc/N73Kq+cNmH2b2f601m7P2WrNmhoyMjP8s+rCv4fp8VK3JyMhohqMM9td99Y6xJQ+/jaVYXtJ3PJ7Bt/gD/Xgch3do0AI8gXfwczLo+Rach7EW2/A7fsDHuBdHjiIn25XH0ikHjsFe4QfdYLfw06X4urFjTMPvPqxLDy0pETIVG3A0XhOR/FzMwRe4ALvaNGgjZuBXfIPpeAHXNeHswUf4DN/jEMzE2eIjM1O82JHmZLvyWDrlwE1YgYuF3+0PaphtsD9jIP1eUkF8M/XfVmh/LLU/3YERc3BKMqKut1WkHl/Rfn/iPzlKnGzX8HN61a5uObAaOzGuor8T1DSk343oU+3UU1PfVv9M2SeIiPub+Ep1irreVk5dhRmJ/1aPcbJdeSxVnMPE9HVVoX1N4lxTaB+DZ1PfQyXyalrMqcswp0HpX4W+X7AeB4tUY6RxRbp/2mOcbNfwc3rVrlacy3EQXim03yH86z6DI/ijuAErcWcrxQe0aeCp6b6lov9LzMU0UTQYTizGoZgo5i2zxIsr+4KNJCfblcfSLucqkdmuKbR/gueEA18vovPdWIQXcXMT/aXoU51+r0x9Cyu49fnDXZ0q1Xn6vcPgMv5qUUkcbU62K4+lHc54kd2+VCHnBFFF34pbk6w3RGSvQk0X6XcvYZKYY0zC1ThJLCGcNcqcbFceSzucy0REL6bedWwTy8STxXLXhiRvTxPdlehTHakfSX23V3CXp/6O0wP7Xyg7URQdNvUYJ9uVx1LGWZXaJzbhLjIQ8ae3oaumi+r3wtS3okJofbnrkjYMqNLbrVMTX8R9YpdNL3GyXXksjZxxYhlrdRPOtaJYtj1xn2pDT00X6fe6dJ9bwpkgNp7sxvttyhtqHJfue3uMk+0afk6v2lXGuUjsMqtKveeJ4tgmnCE2dS00UKjuGH2GfvPJVJE+HNiG3maReprydGWsgSLd+lHgZLvyWDrhLBMOXlZAmyUC41c4NrUtSDJeLXm+ETUNkbrdJS24RUzal4k0ezPOE2vYW3BPCWetmFtMEfvE65ifLqKwAOeLrxSRoixueH4eHsS7oiq4S7yY2aIgsQM3FnSPBCfblcfSLmeM+M+/h+8Kcs7E6/hJFNK2p/aX8SGuxIXirERH6NM8UhPl9lVJ6R6xkbzZgY7+JHNyoX2JweX/4tVfeP50UYzbKBz+T/ECPkiyjijRPRKcbFceS7ucc8R/e1FBxsnC+X8UKXcRlyZes6ltTReFsoyMjP3DA8K/pgyD7JoWTl2/8nnqjIyhw2YR0YcKleepG+fU/eLYZR07h9CAjIz/O04bYnn189QZGRkZGRkZ/yr8DVFtOSuwlQyIAAAAAElFTkSuQmCC\n",
+            "text/latex": "$\\displaystyle \\left[ \\frac{0.133333333333333}{x}\\right]$",
+            "text/plain": [
+              "⎡0.133333333333333⎤\n",
+              "⎢─────────────────⎥\n",
+              "⎣        x        ⎦"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 6
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "xAIGgK6Xr8Zp",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 58
+        },
+        "outputId": "256a9b60-6a2f-41f6-ad8d-626d187144ee"
+      },
+      "source": [
+        "k = solve (t, z) ### resolvendo t em relação a z (o lambda aqui); apresentamos z como função de y\n",
+        "k"
+      ],
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAQIAAAAXCAYAAADgI0HMAAAABHNCSVQICAgIfAhkiAAABCdJREFUeJzt3FuoVGUUwPGfWSFphSVl0c0OWEEQRZZR4TmFPXSBCnrpoScTinrIooig9KGLBBEqkT3kez1IvUiWNEbHoEAjKrs8pARlpUnYhaKyh7UHt6e998yZc2bmIOsPw5zzrW+tvdbA981a69uzSZIkKTGKw6XXF0P1JkmS6WaBo9f44bbguIrJ27EGGypk5+BVfIc/sQcvYn4PTk3W1lpsw7f4Az9jF57C6UPUSb8yln7H0uZM/IP1HebV8btY22uwtyyYVfp7FO8Wk1ZXGBnBDpyBN0TGcBXG8CWuxYEuHerF1l/Yic/xI+ZiKa4Um8lS8eEOWif9ylj6HUubldiIG8RanQotLHP0HoAjpcHqGsW3CvmDE8ZfKMZfnoQTvdiaU2Pr6ULnpSHppF/915mpfvWi08s12mzBfsxumNMtLaXSoMyo+o1gpJB94//lxMn4Fb+J3a0T02kLLivsvd3l/EHppF8Zy3TGcooooTeVxlYVOg/X6FxU6LxXIWvp0COoYqx434p/J8gOYRwnibRmkLbgtuL9ky7nD0on/eq/zkz1qxedTvNvxYnYXBobL97r1sp6kT080Onix3fhILGzwFc18q9xExaLRkg/bT2CeThV1FXXiQ/vuYZrDkIn/cpY+hnLHSJT3loa2ykajldXzL8Ly7HO5DawxtLglUK2oka3Xd883sV1pmprn6OPP7aIbmoTg9BJvzKWfsUyR2TLr1fIthf6Z5XG5oqG4w9io6mipYfSYCaxUHQ6F+JOXCiOX64Ysk76lbH0K5blInvYXCFrlwfXlMaeFMfzj+GXBp8rGVWfETyvuSmxoZDf18V1ptMWnC8aIp92OX9QOulXxjJdsWwqZFXf7reI9bK2+P9icUS5Q8XRYImWHk4NVhSyjTVG28eBNzZcuB+22uwqdBbMMJ30K2OZaiyzxZHhlhqd+aLpvr34/x1x09HlHa7VcowdHxK10GGTu8NxEDrpV8Yy1VjGirGVDXqfiXVzt873IrRp6WEjoLebgEZEqnLCFG0tVp0WHedIc3F8gmwQOulXxtLvWNaJb/imxuPGQvcQftLdxtNS2gi6PT6E+0XdsU6k7bvFscWYOAp8okJnm6h9FonfEvRq62Y8i/dFJnFAfDDLRJNlH+4dgk76lbH0M5ZZuB0fiGyhjnGRMczDQzjYMLcjo5ozAjhXNC6+Fw2JvZp/KLSnsHnBFG1dKpqIH4t66W/RDf2o8Pe0IemkXxlLP2NZItbPqoprl7m+mPeh5gZhmZYeS4MkSQbLM2JNLuow701RPiyZhO2WDhtB+5XPI0iS4bJbZA9NtBuEVY8NmEjt8wjKPYI94ifIbfZ3YThJkv5xSc34eWIDGME94tTg0S7stZ9HkCTJMcBK8W1+EK/h7OG6kyRJkiRJkiTJMcJ/5HSNCIt4NggAAAAASUVORK5CYII=\n",
+            "text/latex": "$\\displaystyle \\left[ \\frac{0.0333333333333333}{y}\\right]$",
+            "text/plain": [
+              "⎡0.0333333333333333⎤\n",
+              "⎢──────────────────⎥\n",
+              "⎣        y         ⎦"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "hBGh74Kor8Zq",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 54
+        },
+        "outputId": "0a15cea9-2bca-4679-d652-280dcef72527"
+      },
+      "source": [
+        "EqL = Eq(w[0],k[0]) ### como lambda é igual a lambda, escrevo a seguinte igualdade\n",
+        "EqL"
+      ],
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "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\n",
+            "text/latex": "$\\displaystyle \\frac{0.133333333333333}{x} = \\frac{0.0333333333333333}{y}$",
+            "text/plain": [
+              "0.133333333333333   0.0333333333333333\n",
+              "───────────────── = ──────────────────\n",
+              "        x                   y         "
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "nxwNJZDDr8Zq",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 38
+        },
+        "outputId": "007364ce-8ed8-427a-d49d-89dbf0458cac"
+      },
+      "source": [
+        "xs = solve(EqL, x) ### resolvendo a equação EqL em relação a x, como resultado temos que x = 4y\n",
+        "xs"
+      ],
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAADwAAAAXCAYAAABXlyyHAAAABHNCSVQICAgIfAhkiAAAArRJREFUWIXt18+LVmUUB/BPOW6aiSlqk2abIUeXZeFIm9dE/wM3UlEQLcqESUhUcmZWCWKMv7CIRG3XStwV/RijqUBQEEQthqyFYCoag5ZE6uI8F+9c3jv33ne0MfILL4f3nOec53zf55znPQ//Y7RwM/c5PavZzAyPm8rlZmZ4sM3iIxjB7oqgL+WCvd5BUk9iH87hOs5iFI92EKuIa4LDCH4tW9QSyQ/XCLgAVzCpM8J9OJ98D2Ervna7sh5rGG86jMmdcB4t9Qg/gC8xgW06I/x58nu7oP8g6T9sGG86jKko6Sqsw4t4DVc78O/DKlHCewq2oRTzZXTn9O+IpNeXxOwXbfFt1eZNCS8W5bejTvASLE/yC9wo2CYxjocwkNOPJzmgPXZhDtZWbd6EcBc+xW/Y1MCviP4kfyqx/5zkwpzuGP7E0jbrV2OlqJYTVZs3IbwFz+DVtHmn6E3yjxJ7pn8kp/sbR8Vl+URO3y36/veUXyXqEl4qTnU7fqjpc6eRlfWynG6L+HvboPwHnII6hLtwUJTgew0SLEOWWG+JPdNfKegzwllZL8KgOIADdTevQ7hH9NNi/GXq9DKU1nycvo/WiHcmyYUl9qeTLPb492mP7OLaLS6qt5T8z7ZDV4011/FJie1Z0dffCSJ1yv2bJFeJHzx/Uz+MF8Sk9GPB7zJOYQnWYAX24niNPduipf6klWHY9INHnyi9uQV9p4PHR8k+iQvqjaFjZjh4NMFX4lTmF/Rvipt1pxgt3xej5aAo5c0l8bI+7sFGceqNcLcJl2ECz2G/uITWi2rYIXr0UonfL0keVd5mtdHSvKT/bRzGP3i+gc+YisfDvfoeXiPyqnq2Ms17OH9LnxXvxwwXZ5zizPGUINqHV3AS79bwy97D/zm8IU7nMj7DvNlN5z7u457DLV9wqNjbwSLhAAAAAElFTkSuQmCC\n",
+            "text/latex": "$\\displaystyle \\left[ 4.0 y\\right]$",
+            "text/plain": [
+              "[4.0⋅y]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cRpAfqU7r8Zr",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 38
+        },
+        "outputId": "f0e07971-b2a5-4410-cbc1-b77bf322688c"
+      },
+      "source": [
+        "q = Eq(x-4*y, 0) ### outra forma de escrever a equação EqL\n",
+        "q"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAWCAYAAAA2CDmeAAAABHNCSVQICAgIfAhkiAAAAwZJREFUaIHt2FuoVFUcx/GPdhDMQiWEio4I3l/KFzkG2YvZg49aBKIVJEFYVPqgBcoQREJpZhJ5Ie3ypCDiU0kFFVkUiEmFFuapQI0eVCyv3R7+a5hhmj179nHrnMOZLyz2rPVfl9/s/17rv9aiS5erYAn+TWlZh7UU5Q68hRO4hH5sxPgOaroqenEG5ww9h0zGb0L3XqzDxyl/BLd0TtrAGIEPcQwvG3oO+UBofqqhfEMqfzOr4f5UYVFD+QjsTLZ1ZakswNP4B/eiItshK5JtZUY/08Vy8Wn5EjOZLDQdx8gG2834A39iTLPGd+FvfI8b6srXp063lCy2HWbiAl5N+Ypsh/Ql2+6MvvbjL9xZrsSWLNP63VVnzzzoaTB+g3fxCJaKWfG8+PJ24YnS5bamJ+n5JenI46BwXl8T24OYj0043KKPZzCugMZDIi5kMT09f8iw/4j7MQ0fNavQK/7UcTwpvPc+RhUQWRYviBl7d11ZResY8kmy31ZXNga/isA6NmfMfrWdXDtpZ05/W3P0vpjsz/H/NU0SvhGT8DoOYCEu5ww8kD/zXou++sSsWI8v2hi7yufpWe/EtWLbuQpnc9pPEjGz3fRoAW25NC5ZVX6v+/0YzrfZ3zFcLDD+iYzyHrwjpvmaAv1Rc0gf9mAGnhVOfbtgX2VQ/QCyZma1/AzNHbIYr+AUbhU7nHZjx7w26+Vxk1hTyXbwtpReE+t+lQNi9s1J+c1ig7I8ledRdgw5mp7TMuxT07NpjFkglqbDmCAOLVfUAtP1YjS2Z6SD4sV+lvIPNWn/ndhOLk513ygwdr9yY8iAt733iKXpJ7WA+IDa6XKwUJF/MNyS6pwTy2+nrycKHwxniTXspPBoPV+nRnNLlzkwKvId8rDBdefVeHXyktrVyVENVydTRLw4rfmB6b7U8Mtrp7cQFfkvem6q85XYCQ0GerFDfPSX8bMhfrlYhH3i/DK700K61AL55k4LGc5MxGqxDb6Eb3FjRxUNcx4Xs+K0uHO7vbNyunTp0mVY8B9zEuZdGrilEgAAAABJRU5ErkJggg==\n",
+            "text/latex": "$\\displaystyle x - 4 y = 0$",
+            "text/plain": [
+              "x - 4⋅y = 0"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "9UhkiYaNr8Zs"
+      },
+      "source": [
+        "Temos agora um sistema com duas equações (p e q) e duas incógnitas (x e y)."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "k_AD8lA6r8Zt"
+      },
+      "source": [
+        "\\begin{cases} x - 4y = 0 \\\\ 5x + 10y = 300 \\end{cases}"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "g9rrXgjjr8Zu"
+      },
+      "source": [
+        "Para resolver esse sistema precisamos importar a biblioteca **numpy.linalq**. Notem que o comando *solve* agora será diferente do anterior."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "XSalberQr8Zu"
+      },
+      "source": [
+        " from numpy.linalg import solve ### O linalg para o sistema é necessário para resolver um sistem de equações"
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "BLxoVB5pr8Zu"
+      },
+      "source": [
+        "Vamos resolver esse sitema usando a regra de Cramer, da Álgebra Linear. Para isso precisamos montar matrizes com os coeficientes do sistema acima."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "q6-fDV7gr8Zv"
+      },
+      "source": [
+        "A = [[1, -4], [5, 10]]\n",
+        "B = [0, 300] ### as matrizes do sistema (composta pelos coeficientes do sistema)"
+      ],
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "inSPym78r8Zv",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "7a4a3667-2fe0-4a78-d4cc-ef0470c2ff98"
+      },
+      "source": [
+        "solve(A,B) ### resolvendo o sistema"
+      ],
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([40., 10.])"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 13
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "rrwTlIW6r8Zw"
+      },
+      "source": [
+        "Portanto, o valor de x é 40 e o de y é 10."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2HI527rmr8Zw"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "dycssBNdr8Zw"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
